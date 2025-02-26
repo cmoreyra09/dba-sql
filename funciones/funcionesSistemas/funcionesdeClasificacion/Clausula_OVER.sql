@@ -38,10 +38,40 @@
     ORDER BY Especifica una columna o expresion segun la cual ordenar.
 
     Order_by_expresion solo puede hacer referencia a las columnas disponibles mediante la clausula FROM. No se puede especificar un numero entero para representar
-    un nombre o alias de columna
+    un nombre o alias de columna-- Subconsultas Devolviendo un valor Unico (Subconsulta Escalar - SELECT )
+
+
+SELECT 
+	P.ProductName,
+	P.UnitPrice,
+	(SELECT AVG(UnitPrice) AS Average FROM Products) AS promedioGlobalversion1,
+	AVG(P.UnitPrice) OVER() AS promedioGlobalversion2
+	FROM Products AS P
+
+
+
+-- Subconsulta Escalar en la clausula Where (Subconsulta en la clausula WHERE )
+
+SELECT 
+	P.ProductName,
+	P.UnitPrice,
+	(SELECT AVG(UnitPrice) AS Average FROM Products) AS promedioGlobalversion1,
+	AVG(P.UnitPrice) OVER() AS promedioGlobalversion2
+	FROM Products AS P
+		WHERE UnitPrice > (SELECT AVG(UnitPrice) AS Average FROM Products)
+
+
+-- Subconsulta Escalar en Expresiones de asignacion (Subconsulta Variables)
+
+DECLARE @precioPromedio DECIMAL(10,2)
+SET @precioPromedio = ( SELECT AVG(UnitPrice) FROM Products )
+SELECT @precioPromedio AS avgUnitPrice
+GO
 
     Si no se especifica, el orden predeterminado es ASC y la funcion de ventana utilizada toda las filas de la particion.
 
+
+	WINDOW FUNCTIONS
 
 */
 
@@ -60,6 +90,7 @@ BEGIN TRANSACTION
 			D.GroupName,	
 			MIN(D.DepartmentID) OVER() AS minimo, -- Inputa el valor minimo a nivel general por columna es decir solo muestra el valor minimo para todos
 			MAX(D.DepartmentID) OVER() AS maximo,  -- Inputa el valor maxinmo a nivel general por columna es decir solo muestra el valor maximo para todos
+			AVG(D.DepartmentID) OVER() AS promedio,  -- Inputa el valor maxinmo a nivel general por columna es decir solo muestra el valor maximo para todos
 			MIN(D.DepartmentID) OVER(PARTITION BY D.GroupName) AS minimoColumna, -- Inputa valor minimo considerando los grupos de nombre es decir d.groupname
 			MAX(D.DepartmentID) OVER(PARTITION BY D.GroupName) AS maximoColumna,-- Inputa el valor maximo considerado los grupos de nombres	
 			MIN(D.DepartmentID) OVER(PARTITION BY D.Groupname ORDER BY D.DepartmentID) AS minimoColumnaOrden, -- Inputa el valor minimo consierando el orden grupo

@@ -1,0 +1,72 @@
+📌 Explicación de Cada Función de Metadatos
+1️⃣ Información sobre la Base de Datos
+Función	Descripción	
+Ejemplo de Uso
+
+DB_NAME()	Devuelve el nombre de la base de datos actual.	SELECT DB_NAME();
+DB_ID()	Devuelve el ID de la base de datos actual.	SELECT DB_ID();
+DATABASE_PRINCIPAL_ID()	Devuelve el ID del usuario principal de la base de datos.	SELECT DATABASE_PRINCIPAL_ID();
+DATABASEPROPERTYEX(DB_NAME(), 'Status')	Devuelve el estado de la base de datos (ONLINE, OFFLINE, RESTORING, etc.).	SELECT DATABASEPROPERTYEX(DB_NAME(), 'Status');
+ORIGINAL_DB_NAME()	Devuelve el nombre original de la base de datos cuando fue creada.	SELECT ORIGINAL_DB_NAME();
+SERVERPROPERTY('ProductVersion')	Devuelve la versión de SQL Server en ejecución.	SELECT SERVERPROPERTY('ProductVersion');
+
+2️⃣ Información sobre Objetos y Esquemas
+Función	Descripción	
+Ejemplo de Uso
+OBJECT_ID('sys.objects')	Devuelve el ID de un objeto en la base de datos.	SELECT OBJECT_ID('sys.objects');
+OBJECT_NAME(OBJECT_ID('sys.objects'))	Devuelve el nombre de un objeto a partir de su ID.	SELECT OBJECT_NAME(OBJECT_ID('sys.objects'));
+OBJECT_SCHEMA_NAME(OBJECT_ID('sys.objects'), DB_ID())	Devuelve el esquema de un objeto.	SELECT OBJECT_SCHEMA_NAME(OBJECT_ID('sys.objects'), DB_ID());
+SCHEMA_NAME()	Devuelve el esquema actual en uso.	SELECT SCHEMA_NAME();
+SCHEMA_ID()	Devuelve el ID del esquema actual.	SELECT SCHEMA_ID();
+
+3️⃣ Información sobre Tablas y Columnas
+Función	Descripción	
+Ejemplo de Uso
+COLUMNPROPERTY(OBJECT_ID('dbo.MiTabla'), 'MiColumna', 'IsIdentity')	Devuelve 1 si la columna es IDENTITY, 0 si no lo es.	SELECT COLUMNPROPERTY(OBJECT_ID('dbo.MiTabla'), 'MiColumna', 'IsIdentity');
+COL_NAME(OBJECT_ID('dbo.MiTabla'), 1)	Devuelve el nombre de la primera columna de la tabla.	SELECT COL_NAME(OBJECT_ID('dbo.MiTabla'), 1);
+COL_LENGTH('dbo.MiTabla', 'MiColumna')	Devuelve la longitud de una columna en bytes.	SELECT COL_LENGTH('dbo.MiTabla', 'MiColumna');
+
+4️⃣ Información sobre Índices
+Función	Descripción	Ejemplo de Uso
+INDEX_COL('dbo.MiTabla', 1, 1)	Devuelve el nombre de la primera columna en un índice.	SELECT INDEX_COL('dbo.MiTabla', 1, 1);
+INDEXPROPERTY(OBJECT_ID('dbo.MiTabla'), 'PK_MiTabla', 'IsUnique')	Devuelve 1 si el índice es único.	SELECT INDEXPROPERTY(OBJECT_ID('dbo.MiTabla'), 'PK_MiTabla', 'IsUnique');
+INDEXKEY_PROPERTY(OBJECT_ID('dbo.MiTabla'), 1, 1, 'ColumnId')	Devuelve el ID de la primera columna clave en el índice.	SELECT INDEXKEY_PROPERTY(OBJECT_ID('dbo.MiTabla'), 1, 1, 'ColumnId');
+
+5️⃣ Información sobre Archivos y Grupos de Archivos
+Función	Descripción	Ejemplo de Uso
+FILE_ID('MiArchivo')	Devuelve el ID de un archivo de base de datos.	SELECT FILE_ID('MiArchivo');
+FILE_NAME(1)	Devuelve el nombre del archivo asociado a un ID de archivo.	SELECT FILE_NAME(1);
+FILEGROUP_ID('PRIMARY')	Devuelve el ID de un grupo de archivos.	SELECT FILEGROUP_ID('PRIMARY');
+FILEGROUP_NAME(1)	Devuelve el nombre de un grupo de archivos dado su ID.	SELECT FILEGROUP_NAME(1);
+FILEPROPERTY('MiArchivo', 'IsReadOnly')	Devuelve 1 si el archivo es de solo lectura.	SELECT FILEPROPERTY('MiArchivo', 'IsReadOnly');
+
+6️⃣ Información sobre Seguridad y Usuarios
+Función	Descripción	Ejemplo de Uso
+SUSER_NAME()	Devuelve el nombre del usuario de SQL Server.	SELECT SUSER_NAME();
+USER_NAME()	Devuelve el usuario de la base de datos actual.	SELECT USER_NAME();
+APP_NAME()	Devuelve el nombre de la aplicación conectada a SQL Server.	SELECT APP_NAME();
+
+7️⃣ Información sobre Objetos y Propiedades Avanzadas
+Función	Descripción	Ejemplo de Uso
+OBJECTPROPERTY(OBJECT_ID('dbo.MiTabla'), 'TableHasPrimaryKey')	Devuelve 1 si la tabla tiene clave primaria.	SELECT OBJECTPROPERTY(OBJECT_ID('dbo.MiTabla'), 'TableHasPrimaryKey');
+OBJECTPROPERTYEX(OBJECT_ID('dbo.MiTabla'), 'IsUserTable')	Devuelve 1 si es una tabla de usuario.	SELECT OBJECTPROPERTYEX(OBJECT_ID('dbo.MiTabla'), 'IsUserTable');
+OBJECT_DEFINITION(OBJECT_ID('dbo.MiProcedimiento'))	Devuelve el código fuente de un procedimiento almacenado.	SELECT OBJECT_DEFINITION(OBJECT_ID('dbo.MiProcedimiento'));
+
+8️⃣ Otras Propiedades y Funciones Útiles
+Función	Descripción	Ejemplo de Uso
+STATS_DATE(OBJECT_ID('dbo.MiTabla'), 1)	Devuelve la fecha de la última actualización de estadísticas de la tabla.	SELECT STATS_DATE(OBJECT_ID('dbo.MiTabla'), 1);
+TYPE_NAME(TYPE_ID('int'))	Devuelve el nombre de un tipo de dato dado su ID.	SELECT TYPE_NAME(TYPE_ID('int'));
+TYPEPROPERTY(TYPE_ID('int'), 'Precision')	Devuelve la precisión del tipo de dato.	SELECT TYPEPROPERTY(TYPE_ID('int'), 'Precision');
+
+🚀 Conclusión
+✅ Todas estas funciones están diseñadas para facilitar la administración de SQL Server, permitiéndote consultar información clave de:
+
+Base de datos
+Esquemas y objetos
+Tablas y columnas
+Índices y almacenamiento
+Usuarios y seguridad
+Otras propiedades avanzadas
+💡 Recomendación: Ejecuta estos ejemplos en SQL Server Management Studio (SSMS), adaptándolos a tus necesidades.
+
+Si necesitas más detalles sobre una función específica o su optimización, dime y lo vemos 🚀.
