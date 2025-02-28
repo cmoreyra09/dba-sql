@@ -1,0 +1,19 @@
+Nombre de la Columna	    Tipo de Dato	                    Descripción
+rowID	                    BIGINT PRIMARY KEY IDENTITY(1,1)	Identificador único de cada registro en la auditoría (autoincremental).
+eventType	                VARCHAR(128)	                    Tipo de evento DDL registrado (ejemplo: CREATE_TABLE, ALTER_TABLE, DROP_TABLE, RENAME).
+postTime	                DATETIME2(0)	                    Fecha y hora en que ocurrió el evento DDL.
+spid	                    INT	                                ID del proceso de sesión (SPID) en SQL Server que ejecutó el evento.
+serverName	                VARCHAR(128)	                    Nombre del servidor SQL donde ocurrió el evento.
+loginName	                VARCHAR(128)	                    Nombre del usuario de SQL Server que ejecutó el evento.
+originalLogin	            VARCHAR(128)	                    Nombre del usuario original que inició la sesión en SQL Server.
+sessionUser	                VARCHAR(128)	                    Usuario de la sesión actual en SQL Server (puede ser diferente a originalLogin).
+userName	                VARCHAR(128)	                    Usuario de base de datos que ejecutó el evento.
+databaseName	            VARCHAR(128)	                    Nombre de la base de datos donde ocurrió el evento.
+schemaName	                VARCHAR(128)	                    Esquema de la base de datos donde ocurrió el evento (dbo, sales, etc.).
+objectName	                VARCHAR(128)	                    Nombre del objeto afectado por el evento (tabla, vista, procedimiento, etc.).
+newObjectName	            VARCHAR(128) NULL	                Nuevo nombre del objeto si el evento es un RENAME (de lo contrario, será NULL).
+objectType	                VARCHAR(128)	                    Tipo del objeto afectado (TABLE, VIEW, PROCEDURE, FUNCTION, etc.).
+TSqlCommand	                VARCHAR(MAX)	                    Código SQL completo que se ejecutó en el evento DDL.
+applicationName	            VARCHAR(256)	                    Nombre de la aplicación cliente que ejecutó el comando (ejemplo: Microsoft SQL Server Management Studio).
+hostName	                VARCHAR(128)	                    Nombre del equipo cliente desde donde se ejecutó el comando.
+clientIP	                VARCHAR(45) NULL	                Dirección IP del cliente que ejecutó el comando (puede ser NULL en conexiones internas).
